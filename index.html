@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Doublej Keys Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body style="background-color: #121215; color: white; font-family: sans-serif; text-align: center; padding-top: 50px;">
+    <h1>Doublej Hub - Generador de Llaves</h1>
+    <p>Esta llave dura 3 horas y se bloquea al primer dispositivo.</p>
+    <button id="genBtn" style="padding: 12px 24px; background-color: #b432dc; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Generar Llave</button>
+    <p id="keyDisplay" style="margin-top: 20px; font-size: 18px; color: #10ff10;"></p>
+
+    <script>
+        const SUPABASE_URL = 'https://fxebqmelsmwdivpeciwt.supabase.co';
+        const SUPABASE_ANON_KEY = 'Sb_publishable_OWssYTC1zTiqp99QjXuCEA_yaymVhBd';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.getElementById('genBtn').addEventListener('click', async () => {
+            const randomKey = "JJ-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+            const now = Date.now();
+
+            const { error } = await supabase
+                .from('keys')
+                .insert([{ key: randomKey, created_at: now, hwid: "" }]);
+
+            if (error) {
+                alert("Error al generar la llave.");
+                console.error(error);
+            } else {
+                document.getElementById('keyDisplay').innerText = "Tu llave es: " + randomKey;
+            }
+        });
+    </script>
+</body>
+</html>
