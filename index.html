@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doublej Key System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <h2>DOUBLEJ KEY SYSTEM</h2>
+        <p>Generador oficial de llaves aleatorias para tu script.</p>
+        
+        <div class="input-group">
+            <input type="text" id="generatedKey" readonly placeholder="Haz clic en generar...">
+        </div>
+        
+        <button class="btn-primary" onclick="generateKey()">Generar Llave</button>
+        <button class="btn-secondary" onclick="copyKey()">Copiar Llave</button>
+
+        <div class="history-container">
+            <div class="history-title">Historial Reciente</div>
+            <div class="key-list" id="keyList">
+                <div class="empty-msg">No hay llaves generadas aún</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
