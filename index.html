@@ -103,7 +103,7 @@
             const url = 'https://fxebqmelsmwdivpeciwt.supabase.co/rest/v1/keys';
             const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZWJxbWVsc213ZGl2cGVjaXd0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NzU2NjA1MywiZXhwIjoyMTAzMTQyMDUzfQ.LT2dzE1NxCF9L9qame__4dEPS1UkH5bsQg43zArj5Gc';
             
-            // Generamos un número aleatorio puro para que encaje con la columna numérica de Supabase
+            // Generamos un número aleatorio para la llave
             const randomKey = Math.floor(100000 + Math.random() * 900000);
 
             const keyBox = document.getElementById('keyBox');
@@ -120,6 +120,7 @@
                     },
                     body: JSON.stringify({
                         key: randomKey,
+                        created_at: new Date().toISOString(), // Enviamos la fecha y hora actual
                         hwid: "ninguno"
                     })
                 });
