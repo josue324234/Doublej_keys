@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doublej Keys - Generador Rojo</title>
+    <title>Doublej Script - Sistema de Llaves y Scripts</title>
     <style>
         * {
             box-sizing: border-box;
@@ -17,31 +17,44 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
             padding: 20px;
         }
-        .container {
-            background: #121212;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(255, 0, 0, 0.2);
+        header {
             text-align: center;
-            max-width: 400px;
+            margin: 30px 0 20px 0;
+        }
+        header h1 {
+            color: #ff3333;
+            font-size: 32px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
+        }
+        header p {
+            color: #aaaaaa;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 450px;
             width: 100%;
+        }
+        .card {
+            background: #121212;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(255, 0, 0, 0.15);
+            text-align: center;
             border: 1px solid #330000;
         }
-        h1 {
-            color: #ff3333;
-            margin-bottom: 10px;
-            font-size: 26px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        p {
-            color: #cccccc;
-            font-size: 14px;
-            margin-bottom: 25px;
+        .card h2 {
+            color: #ff4444;
+            font-size: 20px;
+            margin-bottom: 15px;
         }
         .btn {
             background: linear-gradient(135deg, #cc0000, #990000);
@@ -57,7 +70,7 @@
             box-shadow: 0 4px 10px rgba(204, 0, 0, 0.4);
         }
         .btn:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
             background: linear-gradient(135deg, #ff3333, #cc0000);
             box-shadow: 0 6px 15px rgba(255, 51, 51, 0.6);
         }
@@ -65,10 +78,9 @@
             transform: scale(0.98);
         }
         #keyBox {
-            margin-top: 25px;
+            margin-top: 20px;
             word-break: break-all;
-            font-size: 15px;
-            min-height: 60px;
+            font-size: 14px;
         }
         .key-display {
             background: #000000;
@@ -77,37 +89,73 @@
             border-radius: 8px;
             color: #ff4444;
             font-family: monospace;
-            font-size: 17px;
+            font-size: 18px;
             margin-top: 10px;
             font-weight: bold;
         }
+        .script-box {
+            background: #000000;
+            border: 1px solid #222;
+            padding: 12px;
+            border-radius: 8px;
+            color: #00ffcc;
+            font-family: monospace;
+            font-size: 13px;
+            text-align: left;
+            margin-top: 10px;
+            overflow-x: auto;
+            max-height: 100px;
+        }
         .status-msg {
-            margin-top: 15px;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+        footer {
+            margin-top: 40px;
+            color: #555555;
             font-size: 12px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Doublej Security</h1>
-        <p>Verificación de acceso para el script de Roblox.</p>
-        
-        <button class="btn" onclick="generarLlave()">Generar Llave de Acceso</button>
-        
-        <div id="keyBox"></div>
+    <header>
+        <h1>Doublej Script</h1>
+        <p>La plataforma oficial de scripts y sistemas de acceso para Roblox.</p>
+    </header>
+
+    <div class="main-container">
+        <!-- Sección de Generador de Llaves -->
+        <div class="card">
+            <h2>Generador de Llaves</h2>
+            <p style="color: #cccccc; font-size: 13px; margin-bottom: 20px;">Obtén tu llave numérica vinculada de forma segura a nuestra base de datos.</p>
+            <button class="btn" onclick="generarLlave()">Generar Llave de Acceso</button>
+            <div id="keyBox"></div>
+        </div>
+
+        <!-- Sección de Scripts -->
+        <div class="card">
+            <h2>Script Principal</h2>
+            <p style="color: #cccccc; font-size: 13px; margin-bottom: 10px;">Copia el ejecutable para Roblox:</p>
+            <div class="script-box">loadstring(game:HttpGet("https://raw.githubusercontent.com/josue324234/Doublej_keys/main/script.lua"))()</div>
+            <button class="btn" style="margin-top: 15px; padding: 10px; font-size: 14px;" onclick="copiarScript()">Copiar Script</button>
+        </div>
     </div>
+
+    <footer>
+        &copy; 2026 Doublej Script. Todos los derechos reservados. No afiliado con Roblox Corp.
+    </footer>
 
     <script>
         async function generarLlave() {
             const url = 'https://fxebqmelsmwdivpeciwt.supabase.co/rest/v1/keys';
             const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZWJxbWVsc213ZGl2cGVjaXd0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NzU2NjA1MywiZXhwIjoyMTAzMTQyMDUzfQ.LT2dzE1NxCF9L9qame__4dEPS1UkH5bsQg43zArj5Gc';
             
-            // Creamos estrictamente un número entero aleatorio para que encaje con bigint
             const randomKey = Math.floor(10000000 + Math.random() * 90000000);
 
             const keyBox = document.getElementById('keyBox');
-            keyBox.innerHTML = '<p class="status-msg" style="color:#ff9999;">Conectando con la base de datos segura...</p>';
+            keyBox.innerHTML = '<p class="status-msg" style="color:#ff9999;">Conectando con la base de datos...</p>';
 
             try {
                 let respuesta = await fetch(url, {
@@ -127,15 +175,22 @@
                     keyBox.innerHTML = `
                         Tu llave generada:
                         <div class="key-display">${randomKey}</div>
-                        <p class="status-msg" style="color:#ff6666;">Copia esta llave antes de cerrar la página.</p>
+                        <p class="status-msg" style="color:#ff6666;">¡Cópiala y guárdala bien!</p>
                     `;
                 } else {
                     let errorText = await respuesta.text();
-                    keyBox.innerHTML = `<p class="status-msg" style="color:#ff4444; font-weight:bold;">Error de Base de Datos:</p><p style="font-size:10px; color:#999;">${errorText.substring(0,100)}</p>`;
+                    keyBox.innerHTML = `<p class="status-msg" style="color:#ff4444; font-weight:bold;">Error de Base de Datos</p>`;
                 }
             } catch (e) {
-                keyBox.innerHTML = `<p class="status-msg" style="color:#ff4444; font-weight:bold;">Error de Red: Verifica tu conexión a internet.</p>`;
+                keyBox.innerHTML = `<p class="status-msg" style="color:#ff4444; font-weight:bold;">Error de Red</p>`;
             }
+        }
+
+        function copiarScript() {
+            const textoScript = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/josue324234/Doublej_keys/main/script.lua"))()';
+            navigator.clipboard.writeText(textoScript).then(() => {
+                alert('¡Script copiado al portapapeles!');
+            });
         }
     </script>
 </body>
