@@ -7,7 +7,7 @@
     <style>
         body { background-color: #121215; color: white; font-family: sans-serif; text-align: center; padding-top: 60px; margin: 0; }
         button { padding: 15px 30px; background-color: #b432dc; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 18px; cursor: pointer; }
-        #keyBox { margin-top: 30px; font-size: 20px; color: #10ff10; word-break: break-all; padding: 0 20px; }
+        #keyBox { margin-top: 30px; font-size: 18px; color: #ff5555; word-break: break-all; padding: 0 20px; }
     </style>
 </head>
 <body>
@@ -26,6 +26,7 @@
             const randomKey = "JJ-" + Math.random().toString(36).substring(2, 10).toUpperCase();
             const now = Date.now();
 
+            document.getElementById('keyBox').style.color = "#ffcc00";
             document.getElementById('keyBox').innerText = "Generando...";
 
             try {
@@ -45,12 +46,16 @@
                 });
 
                 if (respuesta.ok) {
+                    document.getElementById('keyBox').style.color = "#10ff10";
                     document.getElementById('keyBox').innerHTML = `Tu llave es:<br><b style="background:#222; padding:10px; display:inline-block; margin-top:10px; border-radius:5px;">${randomKey}</b>`;
                 } else {
-                    document.getElementById('keyBox').innerText = "Error al guardar en la base de datos.";
+                    let errorDetalle = await respuesta.text();
+                    document.getElementById('keyBox').style.color = "#ff5555";
+                    document.getElementById('keyBox').innerText = "Error: " + errorDetalle;
                 }
             } catch (e) {
-                document.getElementById('keyBox').innerText = "Error de conexión.";
+                document.getElementById('keyBox').style.color = "#ff5555";
+                document.getElementById('keyBox').innerText = "Error de red: " + e.message;
             }
         }
     </script>
