@@ -101,7 +101,8 @@
     <script>
         async function generarLlave() {
             const url = 'https://fxebqmelsmwdivpeciwt.supabase.co/rest/v1/keys';
-            const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4ZWJxbWVsc213ZGl2cGVjaXd0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NzU2NjA1MywiZXhwIjoyMTAzMTQyMDUzfQ.LT2dzE1NxCF9L9qame__4dEPS1UkH5bsQg43zArj5Gc';
+            // Usamos tu clave pública actual de Supabase
+            const apiKey = 'Sb_publishable_OWssYTC1zTiqp99QjXuCEA_yaymVhBd';
             
             const randomKey = "JJ-" + Math.random().toString(36).substring(2, 12).toUpperCase();
             const now = Date.now();
@@ -133,7 +134,7 @@
                     `;
                 } else {
                     let errorText = await respuesta.text();
-                    keyBox.innerHTML = `<p class="status-msg" style="color:#ff4444; font-weight:bold;">Error Crítico: No se pudo guardar en la base de datos.</p><p style="font-size:10px; color:#999;">${errorText.substring(0,50)}...</p>`;
+                    keyBox.innerHTML = `<p class="status-msg" style="color:#ff4444; font-weight:bold;">Error Crítico: No se pudo guardar en la base de datos.</p><p style="font-size:10px; color:#999;">${errorText.substring(0,80)}...</p>`;
                 }
             } catch (e) {
                 keyBox.innerHTML = `<p class="status-msg" style="color:#ff4444; font-weight:bold;">Error de Red: Verifica tu conexión a internet.</p>`;
