@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doublej Keys - Generador Rojo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #080808; /* Fondo casi negro */
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: #121212; /* Fondo del contenedor más oscuro */
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(255, 0, 0, 0.2); /* Sombra sutil roja */
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #330000; /* Borde rojo oscuro */
+        }
+        h1 {
+            color: #ff3333; /* Título principal Rojo Brillante */
+            margin-bottom: 10px;
+            font-size: 26px;
+            text-transform: uppercase; /* Estilo más agresivo */
+            letter-spacing: 1px;
+        }
+        p {
+            color: #cccccc; /* Texto secundario gris claro */
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #cc0000, #990000); /* Botón Degradado Rojo */
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(204, 0, 0, 0.4);
+        }
+        .btn:hover {
+            transform: scale(1.03);
+            background: linear-gradient(135deg, #ff3333, #cc0000); /* Hover más brillante */
+            box-shadow: 0 6px 15px rgba(255, 51, 51, 0.6);
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        #keyBox {
+            margin-top: 25px;
+            word-break: break-all;
+            font-size: 15px;
+            min-height: 60px; /* Para que no salte el diseño al cargar */
+        }
+        .key-display {
+            background: #000000; /* Fondo negro para la llave */
+            border: 1px solid #660000; /* Borde rojo para la llave */
+            padding: 12px;
+            border-radius: 8px;
+            color: #ff4444; /* Texto de la llave en Rojo Claro (tipo neón) */
+            font-family: monospace;
+            font-size: 17px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .status-msg {
+            margin-top: 15px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Doublej Security</h1>
+        <p>Verificación de acceso para el script de Roblox.</p>
+        
+        <button class="btn" onclick="generarLlave()">Generar Llave de Acceso</button>
+        
+        <div id="keyBox"></div>
+    </div>
+
+    <script>
+        async function generarLlave() {
+            const url = 'https://fxebqmelsmwdivpeciwt.supabase.co/rest/v1/keys';
+            const apiKey = 'Sb_publishable_OWssYTC1zTiqp99QjXuCEA_yaymVhBd';
+            
+            const randomKey = "JJ-" + Math.random().toString(36).substring(2, 12).toUpperCase();
+            const now = Date.now();
+
+            const keyBox = document.getElementById('keyBox');
+            keyBox.innerHTML = '<p class="status-msg" style="color:#ff9999;">Conectando con la base de datos segura...</p>';
+
+            try {
+                let respuesta = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': apiKey,
+                        'Authorization': 'Bearer ' + apiKey,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        key: randomKey,
+                        created_at: now,
+                        hwid: ""
+                    })
+                });
+
+                if (respuesta.ok) {
+                    // Éxito: Muestra la llave en el recuadro negro con texto rojo
+                    keyBox.innerHTML = `
+                        Tu llave generada:
+                        <div class="key-display">${randomKey}</div>
+                        <p class="status-msg" style="color:#ff6666;">Copia esta llave antes de cerrar la página.</p>
+                    `;
+                } else {
+                    // Error: Muestra el mensaje de error en rojo
+                    let errorText = await respuesta.text();
+                    keyBox.innerHTML = `<p class="status-msg" style="color:#ff4444; font-weight:bold;">Error Crítico: No se pudo guardar en la base de datos.</p><p style="font-size:10px; color:#999;">${errorText.substring(0,50)}...</p>`;
+                }
+            } catch (e) {
+                // Error de red: Muestra mensaje de error de conexión
+                keyBox.innerHTML = `<p class="status-msg" style="color:#ff4444; font-weight:bold;">Error de Red: Verifica tu conexión a internet.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
