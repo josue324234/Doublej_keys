@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doublej Keys Generator</title>
+</head>
+<body style="background-color: #121215; color: white; font-family: sans-serif; text-align: center; padding-top: 50px;">
+    <h1>Doublej Hub - Generador de Llaves</h1>
+    <p>Esta llave dura 3 horas y se bloquea al primer dispositivo.</p>
+    
+    <button id="genBtn" style="padding: 12px 24px; background-color: #b432dc; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px;">Generar Llave</button>
+    
+    <div id="keyDisplay" style="margin-top: 25px; font-size: 18px; color: #10ff10; word-break: break-all; padding: 0 20px;"></div>
+
+    <script>
+        const SUPABASE_URL = 'https://fxebqmelsmwdivpeciwt.supabase.co';
+        const SUPABASE_ANON_KEY = 'Sb_publishable_OWssYTC1zTiqp99QjXuCEA_yaymVhBd';
+
+        document.getElementById('genBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('genBtn');
+            const display = document.getElementById('keyDisplay');
+            
+            btn.innerText = "Generando...";
+            btn.disabled = true;
+
+            const randomKey = "JJ-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+            const now = Date.now();
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/keys`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        key: randomKey,
+                        created_at: now,
+                        hwid: ""
+                    })
+                });
+
+                if (response.ok) {
+                    display.innerHTML = `Tu llave es:<br><b style="user-select: all; background: #222; padding: 10px; display: inline-block; margin-top: 10px; border-radius: 5px;">${randomKey}</b>`;
+                    btn.innerText = "¡Generada!";
+                } else {
+                    const errText = await response.text();
+                    console.error(errText);
+                    display.innerText = "Error al conectar con la base de datos.";
+                    btn.innerText = "Generar Llave";
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                console.error(err);
+                display.innerText = "Error de red al intentar generar.";
+                btn.innerText = "Generar Llave";
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
