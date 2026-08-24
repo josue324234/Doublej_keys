@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    background-color: #080808;
+    color: #ededed;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.card {
+    background: #111113;
+    border: 1px solid #222226;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(220, 38, 38, 0.05);
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+}
+
+h2 {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+p {
+    font-size: 13px;
+    color: #888888;
+    margin-bottom: 24px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    box-sizing: border-box;
+    background: #0d0d0f;
+    border: 1px solid #2a2a30;
+    color: #ff4d4d;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    background-color: #dc2626;
+    color: white;
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+}
+
+.btn-secondary {
+    background-color: #1a1a1e;
+    color: #cccccc;
+    border: 1px solid #2a2a30;
+}
+
+.history-container {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.history-title {
+    font-size: 11px;
+    color: #666666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.key-list {
+    max-height: 110px;
+    overflow-y: auto;
+    background: #0d0d0f;
+    border: 1px solid #1c1c21;
+    border-radius: 10px;
+    padding: 8px;
+}
+
+.empty-msg {
+    color: #555555;
+    font-size: 12px;
+    text-align: center;
+    padding: 10px;
+}
+
+.key-item {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-bottom: 1px solid #16161a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #cccccc;
+    font-family: monospace;
+}
+
+.badge {
+    background: rgba(220, 38, 38, 0.15);
+    color: #ff4d4d;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+}
